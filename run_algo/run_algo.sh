@@ -100,28 +100,5 @@ for per in ${periode[@]}; do
          done
       done
    done
-
-
-   #loop on seuil (threshold):
-   for s in ${seuil[@]}; do
-      #loop on sim
-      for sim in ${simu[@]}; do
-         ar_sim=/scratchu/lbarthelemy/ssp245_2015_2055/ar_detect/$s/ar_tag_ant_CMIP6_${per}_${s}_${sim}.nc
-         cdo mergetime /scratchu/lbarthelemy/ssp245_2015_2055/ar_detect/$s/$sim/ar_tag_ant_CMIP6_${per}_${s}_${sim}_*.nc $ar_sim
-
-         #run count AR event algo
-         count_ar=/scratchu/lbarthelemy/ssp245_2015_2055/ar_event/$s/count_ar_${per}_${s}_${sim}.pkl
-         python /home/lbarthelemy/script/run_algo/count_ar.py "$ar_sim" "${count_ar}"
-
-
-         #run intensite ar algo
-         intensite_ar=/scratchu/lbarthelemy/ssp245_2015_2055/intensite_ar/$s/intensite_ar_${per}_${s}_${sim}.pkl
-         vivt=/scratchu/lbarthelemy/ssp245_2015_2055/vIVT/vIVT_${per}_$sim.nc
-         prec=/scratchu/lbarthelemy/pr/$per/pr_6hr_mm_${per}_${sim}.nc
-         tas=/data/lbarthelemy/cmip6_temp/$per/tas_6hr/tas_6hr_${per}_${sim}.nc
-
-         python /home/lbarthelemy/script/intensite_ar.py "$count_ar" "$vivt" "$prec" "$tas" "$intensite_ar"
-      done
-   done
 done
 
