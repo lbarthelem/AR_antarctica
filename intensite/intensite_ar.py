@@ -7,25 +7,20 @@ import sys
 
 #file count have to be in .pkl
 file_count = str(sys.argv[1])
-#file_count = '/scratchu/lbarthelemy/ssp245_2015_2055/ar_event/seuil_var/count_ar_ssp245_seuil_var_r2i1p1f1.pkl'
 df = pd.read_pickle(file_count)
 
 #file vIVT in .nc
 vivt_file = str(sys.argv[2])
-#vivt_file = '/scratchu/lbarthelemy/ssp245_2015_2055/vIVT/vIVT_ssp245_r2i1p1f1.nc'
 vivt = xr.open_dataset(vivt_file).vIVT
-#vivt = vivt * -1
-#vivt = vivt.where(vivt > 0)
+
 
 
 #file precip  in .nc
 pr_file = str(sys.argv[3])
-#pr_file = '/scratchu/lbarthelemy/pr/ssp245/n_pr_6hr_ssp245_r2i1p1f1.nc'
 pr = xr.open_dataset(pr_file).pr
 
 #file tas in .nc
 tas_file = str(sys.argv[4])
-#tas_file = '/data/lbarthelemy/cmip6_temp/ssp245/tas_ssp245_r2i1p1f1.nc'
 tas = xr.open_dataset(tas_file).tas
 
 #file land_mask
@@ -211,7 +206,7 @@ df['month'] = pd.DatetimeIndex(df.ar_begin).month
 df['duration'] = df.ar_end - df.ar_begin
 
 
-#out_file = '/data/lbarthelemy/publi_03_2023/hist/count_ar/seuil_fix/intensite/intensite_ar_hist_seuil_fixe_'+ file_count[77:-4] + '.pkl'
+
 
 out_file = str(sys.argv[5])
 df.to_pickle(out_file)
